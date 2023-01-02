@@ -12,10 +12,7 @@ get_header();
 	<?php 
 		global $post;        
 	?>
-	<div id="primary" class="content-area <?php echo esc_attr( $blog_personal_layout_class );?>">
-		<main id="main" class="site-main">
-			<?php the_content(); ?>
-		</main><!-- #main -->
-	</div><!-- #primary -->
+	<?php the_content(); ?>
 <?php
+get_footer();
 

@@ -166,7 +166,15 @@ function blog_personal_widgets_init() {
 		'after_widget'  => '</section>',
 		'before_title'  => '<h2 class="entry-title">',
 		'after_title'   => '</h2>',
-	) );	
+	) );
+	register_sidebar( array(
+		'name'          => esc_html__( 'Logo Primary', 'blog-personal' ),
+		'id'            => 'logo-primary',		
+		'before_widget' => '<section id="%1$s" class="%2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h2 class="entry-title">',
+		'after_title'   => '</h2>',
+	) );		
 }
 add_action( 'widgets_init', 'blog_personal_widgets_init' );
 
@@ -216,7 +224,96 @@ function blog_personal_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'blog_personal_scripts' );
 
+// Add Menu
+function ms_menus() {
+
+	$locations = array(
+		'topmenu'  => __( 'Top Menu', 'ms' ),
+		'footer'   => __( 'Footer Menu', 'ms' ),
+		'subheader'   => __( 'Sub Header Menu', 'ms' ),
+	);
+
+	register_nav_menus( $locations );
+}
+
+add_action( 'init', 'ms_menus' );
+// End  Add Menu
+
+// Add Class Nav Menu
+class MFS_Walker_Nav_Menu extends Walker_Nav_Menu
+{
+    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+
+        $is_current_item = '';
+        if(array_search('current-menu-item', $item->classes) != 0)
+        {
+            $is_current_item = ' class="active"';
+        }
+        echo '<a href="'.$item->url.'"'.$is_current_item.'>'.$item->title;
+    }
+
+    function end_el( &$output, $item, $depth = 0, $args = array() ) {
+        echo '</a>';
+    }
+}
+
+class MFS_Walker_Nav_Menu2 extends Walker_Nav_Menu
+{
+    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+
+        $is_current_item = '';
+        if(array_search('current-menu-item', $item->classes) != 0)
+        {
+            $is_current_item = ' --active';
+        }
+
+		/*
+		 * NOTE: Add Underline To Main Nav For Tabs
+		 * Tabs aren't categorized as the content page by wordpress
+		 * Aflah Nadhif (25/08/2022)
+		 */
+		global $wp;
+		if (strpos(home_url( $wp->request ), $item->url) !== false) {
+			$is_current_item = ' --active';
+		}
+
+		/*
+		 * NOTE: Add Underline To Main Nav For Child Pages
+		 * There are no relationship between which child pages belongs to the main nav, so
+		 * need to add it by hardcoding it based on the site design. The about us page have
+		 * different config on CMS so its handled differently. It can be seen in the
+		 * Appearance > Menus > Top Menu.
+		 * Aflah Nadhif (25/08/2022)
+		 */
+		if (strpos($item->url, '/about-us') !== false) {
+			$is_current_item = ' --active';
+		} elseif ($item->url == '/product') {
+			$is_current_item = ' --active';
+		} elseif ($item->url == '/blog') {
+			$is_current_item = ' --active';
+		} elseif ($item->url == '/shop') {
+			$is_current_item = ' --active';
+		} elseif ($item->url == '/contact') {
+			$is_current_item = ' --active';
+		}
+
+        echo '<li class="navbar-item '.$is_current_item.'"><a class="navbar-link" href="'.$item->url.'">'.$item->title;
+    }
+
+    function end_el( &$output, $item, $depth = 0, $args = array() ) {
+        echo '</a></li>';
+    }
+}
+// Enqueue additional admin scripts
+add_action('admin_enqueue_scripts', 'ctup_wdscript');
+function ctup_wdscript() 
+{
+    wp_enqueue_media();
+    wp_enqueue_script('ads_script', get_template_directory_uri() . '/assets/js/widgets.js', false, '1.0.3', true);
+	wp_enqueue_style('ads_style', get_template_directory_uri() . '/assets/css/admin.css', false, '1.0.2', 'all');
+}
 /**
  * Load init.
  */
 require_once trailingslashit( get_template_directory() ) . 'inc/init.php';
+require_once 'widgets/widgets.php';
