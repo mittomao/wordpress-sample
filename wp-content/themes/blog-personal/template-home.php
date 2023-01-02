@@ -14,9 +14,7 @@ get_header();
 	?>
 	<div id="primary" class="content-area <?php echo esc_attr( $blog_personal_layout_class );?>">
 		<main id="main" class="site-main">
-			<?php if ( is_active_sidebar( 'home-widget' ) ) : 
-				dynamic_sidebar( 'home-widget' );
-			endif;?>
+			<?php the_content(); ?>
 		</main><!-- #main -->
 	</div><!-- #primary -->
 <?php
