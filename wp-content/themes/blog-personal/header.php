@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <?php wp_head(); ?>
 </head>
 
@@ -36,9 +37,6 @@
 
                 <div class="overlay" data-overlay></div>
 
-                <!-- <a href="#" class="logo page-logo">
-                    <img src="./assets/images/logo.png" alt="Mao Shop logo">                 
-                </a> -->
                 <?php dynamic_sidebar('logo-primary'); ?>
 
                 <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
@@ -53,33 +51,6 @@
 
                     <?php dynamic_sidebar('logo-primary'); ?>
 
-                    <!-- <ul class="navbar-list">
-
-                        <li class="navbar-item">
-                            <a href="#" class="navbar-link">Home</a>
-                        </li>
-
-                        <li class="navbar-item">
-                            <a href="#" class="navbar-link">About</a>
-                        </li>
-
-                        <li class="navbar-item">
-                            <a href="#" class="navbar-link">Products</a>
-                        </li>
-
-                        <li class="navbar-item">
-                            <a href="#" class="navbar-link">Shop</a>
-                        </li>
-
-                        <li class="navbar-item">
-                            <a href="#" class="navbar-link">Blog</a>
-                        </li>
-
-                        <li class="navbar-item">
-                            <a href="#" class="navbar-link">Contact</a>
-                        </li>
-
-                    </ul> -->
                     <ul class="navbar-list">
                     <?php
                     if (has_nav_menu('topmenu')) {
